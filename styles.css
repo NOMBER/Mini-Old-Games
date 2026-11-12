@@ -1,0 +1,85 @@
+.mg-root { overflow: auto; }
+.mg-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px; }
+.mg-head { display: flex; align-items: center; gap: 8px; font-size: 1.3em; font-weight: 600; }
+.mg-head-icon, .mg-card-icon, .mg-hub-icon { display: inline-flex; color: var(--interactive-accent); }
+.mg-head-icon svg, .mg-card-icon svg { width: 22px; height: 22px; }
+.mg-hub-icon svg { width: 32px; height: 32px; }
+.mg-info { font-size: 1.05em; color: var(--text-normal); text-align: center; }
+.mg-toolbar { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; }
+.mg-canvas { display: block; max-width: 100%; height: auto; border: 2px solid var(--background-modifier-border); border-radius: 8px; background: var(--background-secondary); outline: none; touch-action: none; user-select: none; -webkit-user-select: none; }
+.mg-canvas:focus { border-color: var(--interactive-accent); }
+.mg-pad { display: flex; flex-direction: column; gap: 6px; align-items: center; user-select: none; }
+.mg-pad-row { display: flex; gap: 6px; }
+.mg-pad-row button, .mg-pad-spacer { width: 52px; height: 46px; font-size: 20px; padding: 0; touch-action: manipulation; }
+.mg-pad-row button.mg-wide { width: 168px; }
+.mg-hint { font-size: 0.85em; color: var(--text-muted); text-align: center; max-width: 520px; }
+.mg-select { max-width: 180px; }
+
+/* Компактный режим (всплывающее окно) */
+.mg-compact { padding: 8px; gap: 6px; }
+.mg-compact .mg-info { font-size: 0.85em; }
+.mg-compact .mg-toolbar button, .mg-compact .mg-select { font-size: 0.85em; padding: 2px 8px; height: auto; min-height: 26px; }
+.mg-compact .mg-pad-row button, .mg-compact .mg-pad-spacer { width: 42px; height: 34px; font-size: 16px; }
+.mg-compact .mg-pad-row button.mg-wide { width: 138px; }
+
+.mg-popup { position: fixed; z-index: var(--layer-popover, 30); left: 60px; top: 60px; background: var(--background-primary); border: 1px solid var(--background-modifier-border); border-radius: 12px; box-shadow: var(--shadow-l, 0 10px 30px rgba(0,0,0,0.35)); max-width: calc(100vw - 16px); max-height: calc(100vh - 16px); overflow: auto; }
+.mg-popup-head { display: flex; align-items: center; gap: 6px; padding: 6px 8px 6px 12px; border-bottom: 1px solid var(--background-modifier-border); cursor: move; user-select: none; touch-action: none; }
+.mg-popup-title { flex: 1; font-weight: 600; }
+.mg-popup-btn { background: transparent; box-shadow: none; border: none; padding: 2px 6px; font-size: 15px; cursor: pointer; color: var(--text-muted); }
+.mg-popup-btn:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.mg-popup-body { padding: 0; }
+
+/* Хаб */
+.mg-hub { padding: 16px 20px; max-width: 1100px; margin: 0 auto; }
+.mg-hub-head { display: flex; align-items: center; gap: 10px; }
+.mg-hub-head h2 { margin: 0; }
+.mg-tabs { display: flex; gap: 6px; margin: 12px 0; }
+.mg-muted { color: var(--text-muted); font-size: 0.9em; margin-bottom: 10px; }
+.mg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.mg-card { border: 1px solid var(--background-modifier-border); border-radius: 10px; padding: 12px 14px; background: var(--background-secondary); display: flex; flex-direction: column; gap: 8px; }
+.mg-card-title { display: flex; align-items: center; gap: 8px; font-size: 1.15em; font-weight: 600; }
+.mg-card-rules { font-size: 0.92em; }
+.mg-card-controls, .mg-card ul { margin: 0; padding-left: 18px; font-size: 0.85em; color: var(--text-muted); }
+.mg-card-stats { font-size: 0.85em; color: var(--text-accent); }
+.mg-card-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+.mg-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-bottom: 10px; }
+.mg-tile { border: 1px solid var(--background-modifier-border); border-radius: 10px; padding: 10px 12px; background: var(--background-secondary); }
+.mg-tile-v { font-size: 1.25em; font-weight: 700; }
+.mg-tile-l { font-size: 0.8em; color: var(--text-muted); }
+.mg-table-wrap { overflow-x: auto; }
+.mg-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.mg-table th, .mg-table td { border-bottom: 1px solid var(--background-modifier-border); padding: 6px 8px; text-align: left; white-space: nowrap; }
+.mg-table th { color: var(--text-muted); font-weight: 600; }
+
+/* 1.2: игра внутри хаба */
+.mg-hub-play { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.mg-hub-playbar { display: flex; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap; }
+.mg-hub-playbar .mg-hub-playtitle { font-weight: 600; font-size: 1.1em; }
+.mg-hub-playbar .mg-hub-esc { margin-left: auto; font-size: 0.85em; }
+.mg-hub-endbar { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.mg-hub-game { width: 100%; display: flex; justify-content: center; }
+.mg-card-btns select.mg-select { max-width: 100%; }
+.mg-diff-select { max-width: 11em; }
+
+/* 1.3: достижения */
+.mg-card-ach { font-size: 0.85em; color: var(--text-muted); cursor: pointer; }
+.mg-card-ach:hover { color: var(--text-accent); }
+.mg-ach-overall { margin: 8px 0 16px; }
+.mg-ach-overall-text { font-weight: 600; margin-bottom: 6px; }
+.mg-ach-bar { height: 10px; border-radius: 5px; background: var(--background-modifier-border); overflow: hidden; }
+.mg-ach-bar-small { height: 5px; margin-top: 4px; max-width: 160px; }
+.mg-ach-bar-fill { height: 100%; background: var(--interactive-accent); border-radius: inherit; transition: width .3s; }
+.mg-ach-group-title { display: flex; align-items: center; gap: 6px; margin: 18px 0 8px; }
+.mg-ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
+.mg-ach { display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--background-modifier-border); background: var(--background-secondary); }
+.mg-ach.is-unlocked { border-color: var(--interactive-accent); }
+.mg-ach-badge { position: relative; flex: 0 0 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;
+  background: radial-gradient(circle at 35% 30%, #ffe58a, #f0a92e 70%, #b87412); box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+.mg-ach.is-locked .mg-ach-badge { background: var(--background-modifier-border); box-shadow: none; }
+.mg-ach.is-locked .mg-ach-emoji { filter: grayscale(1); opacity: .45; }
+.mg-ach-lock { position: absolute; right: -4px; bottom: -4px; font-size: 14px; }
+.mg-ach-body { min-width: 0; }
+.mg-ach-title { font-weight: 600; }
+.mg-ach-desc { font-size: 0.85em; color: var(--text-muted); }
+.mg-ach-date, .mg-ach-prog-text { font-size: 0.8em; color: var(--text-faint); margin-top: 2px; }
+.mg-ach.is-unlocked .mg-ach-date { color: var(--text-accent); }

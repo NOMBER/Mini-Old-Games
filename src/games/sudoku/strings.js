@@ -1,0 +1,50 @@
+'use strict';
+// en/ru strings (keys must exist in both) — identical to 1.4.0
+module.exports = {
+  en: {
+    "su.info": "⏱ {time} · Mistakes: {mistakes} · Cells left: {left} · Best time: {bt}",
+    "su.win": "Solved in {time}!",
+    "su.notesOn": "✎ Notes: ON",
+    "su.notesOff": "✎ Notes: off",
+    "g.sudoku.name": "Sudoku",
+    "g.sudoku.rules": "Fill the 9×9 grid so every row, column and 3×3 box contains 1–9 once. Each puzzle has exactly one solution; Easy / Normal / Hard start with about 40 / 32 / 26 numbers. Wrong numbers and conflicts turn red and count as mistakes. Faster solves with fewer mistakes score more.",
+    "g.sudoku.controls": "Click a cell, then 1–9 or the keypad below\nArrows/WASD — move, 0/Backspace/Delete — erase\nN or “Notes” — pencil marks\nP — pause, Enter — new puzzle",
+    "d.solved": "Puzzles solved: {n}",
+    "d.cleanWins": "Solved without mistakes: {n}",
+    "sum.solved": "Solved: {n}",
+    "d.byDiffTime": ", best time {t}",
+    "ach.su_win.t": "Number cruncher",
+    "ach.su_win.d": "Solve a Sudoku.",
+    "ach.su_clean.t": "Flawless logic",
+    "ach.su_clean.d": "Solve a Sudoku without a single mistake.",
+    "ach.su_fast.t": "Speed solver",
+    "ach.su_fast.d": "Solve a Sudoku in under 5 minutes.",
+    "ach.su_hard.t": "Grandmaster",
+    "ach.su_hard.d": "Solve a Sudoku on Hard.",
+    "ach.su_wins10.t": "Puzzle book",
+    "ach.su_wins10.d": "Solve {n} Sudoku puzzles."
+  },
+  ru: {
+    "su.info": "⏱ {time} · Ошибки: {mistakes} · Осталось клеток: {left} · Лучшее время: {bt}",
+    "su.win": "Решено за {time}!",
+    "su.notesOn": "✎ Заметки: ВКЛ",
+    "su.notesOff": "✎ Заметки: выкл",
+    "g.sudoku.name": "Судоку",
+    "g.sudoku.rules": "Заполни поле 9×9 так, чтобы в каждой строке, столбце и квадрате 3×3 цифры 1–9 встречались по одному разу. У каждой головоломки ровно одно решение; на Легко / Нормально / Сложно открыто около 40 / 32 / 26 цифр. Неверные цифры и конфликты подсвечиваются красным и считаются ошибками. Чем быстрее и с меньшим числом ошибок — тем больше очков.",
+    "g.sudoku.controls": "Клик по клетке, затем 1–9 или кнопки снизу\nСтрелки/WASD — курсор, 0/Backspace/Delete — стереть\nN или «Заметки» — карандашные пометки\nP — пауза, Enter — новая головоломка",
+    "d.solved": "Решено головоломок: {n}",
+    "d.cleanWins": "Решено без ошибок: {n}",
+    "sum.solved": "Решено: {n}",
+    "d.byDiffTime": ", лучшее время {t}",
+    "ach.su_win.t": "Счетовод",
+    "ach.su_win.d": "Реши судоку.",
+    "ach.su_clean.t": "Безупречная логика",
+    "ach.su_clean.d": "Реши судоку без единой ошибки.",
+    "ach.su_fast.t": "Скоростной решатель",
+    "ach.su_fast.d": "Реши судоку быстрее 5 минут.",
+    "ach.su_hard.t": "Гроссмейстер",
+    "ach.su_hard.d": "Реши судоку на сложном уровне.",
+    "ach.su_wins10.t": "Сборник головоломок",
+    "ach.su_wins10.d": "Реши {n} судоку."
+  }
+};

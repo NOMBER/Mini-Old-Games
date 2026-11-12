@@ -1,0 +1,21 @@
+{
+  "name": "good-old-games-src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/unit/*.test.js && node test/integration/run.js",
+    "test:unit": "node --test test/unit/*.test.js",
+    "test:integration": "node test/integration/run.js"
+  },
+  "keywords": [],
+  "author": "NOMBER",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "esbuild": "^0.24.2",
+    "jsdom": "^31.0.0"
+  },
+  "private": true
+}

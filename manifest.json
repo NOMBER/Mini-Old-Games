@@ -1,0 +1,9 @@
+{
+  "id": "good-old-games",
+  "name": "Good Old Games",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your Obsidian vault.",
+  "author": "NOMBER",
+  "isDesktopOnly": false
+}

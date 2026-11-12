@@ -1,0 +1,52 @@
+'use strict';
+// en/ru strings (keys must exist in both) — identical to 1.4.0
+module.exports = {
+  en: {
+    "iv.info": "Score: {score} · Lives: {lives} · Wave: {wave} · Best: {best}",
+    "iv.wave": "Wave {wave}",
+    "iv.fire": "Fire",
+    "iv.ready": "Space, click or tap to start",
+    "iv.waveReady": "Wave {wave}!",
+    "g.invaders.name": "Space Invaders",
+    "g.invaders.rules": "Rows of aliens march side to side and creep down. Shoot them before they land, hide behind the green shields and dodge the bombs. Clearing a wave brings a faster one. Difficulty changes alien speed, fire rate and lives (5 / 3 / 2).",
+    "g.invaders.controls": "← → (A D) or mouse/finger — move the cannon\nSpace, ↑, click or tap — fire\nP — pause, Enter — restart",
+    "d.bestWaves": "Most waves cleared: {n}",
+    "d.totalKills": "Invaders destroyed: {n}",
+    "sum.waves": "Waves: {n}",
+    "d.byDiffWaves": ", waves {w}",
+    "ach.iv_wave1.t": "Defender",
+    "ach.iv_wave1.d": "Clear the first wave of invaders.",
+    "ach.iv_score1000.t": "Sharp cannon",
+    "ach.iv_score1000.d": "Score {n} points in one game.",
+    "ach.iv_wave5.t": "Planet saver",
+    "ach.iv_wave5.d": "Clear {n} waves in one game.",
+    "ach.iv_kills500.t": "Exterminator",
+    "ach.iv_kills500.d": "Destroy {n} invaders in total.",
+    "ach.iv_hardwave.t": "Last line",
+    "ach.iv_hardwave.d": "Clear a wave on Hard."
+  },
+  ru: {
+    "iv.info": "Счёт: {score} · Жизни: {lives} · Волна: {wave} · Рекорд: {best}",
+    "iv.wave": "Волна {wave}",
+    "iv.fire": "Огонь",
+    "iv.ready": "Пробел, клик или тап — старт",
+    "iv.waveReady": "Волна {wave}!",
+    "g.invaders.name": "Космические захватчики",
+    "g.invaders.rules": "Ряды пришельцев маршируют из стороны в сторону и спускаются ниже. Сбей их, пока они не приземлились, прячься за зелёными укрытиями и уворачивайся от бомб. После каждой волны приходит более быстрая. Сложность меняет скорость пришельцев, частоту их выстрелов и число жизней (5 / 3 / 2).",
+    "g.invaders.controls": "← → (A D) или мышь/палец — двигать пушку\nПробел, ↑, клик или тап — выстрел\nP — пауза, Enter — заново",
+    "d.bestWaves": "Больше всего волн за игру: {n}",
+    "d.totalKills": "Сбито пришельцев: {n}",
+    "sum.waves": "Волн: {n}",
+    "d.byDiffWaves": ", волн {w}",
+    "ach.iv_wave1.t": "Защитник",
+    "ach.iv_wave1.d": "Отбей первую волну пришельцев.",
+    "ach.iv_score1000.t": "Меткая пушка",
+    "ach.iv_score1000.d": "Набери {n} очков за игру.",
+    "ach.iv_wave5.t": "Спаситель планеты",
+    "ach.iv_wave5.d": "Отбей {n} волн за одну игру.",
+    "ach.iv_kills500.t": "Истребитель",
+    "ach.iv_kills500.d": "Сбей всего {n} пришельцев.",
+    "ach.iv_hardwave.t": "Последний рубеж",
+    "ach.iv_hardwave.d": "Отбей волну на сложном уровне."
+  }
+};
