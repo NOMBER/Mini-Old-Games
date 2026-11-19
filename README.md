@@ -114,3 +114,9 @@ If you previously used *Mini Games* (`mini-games`) or *Mini Old Games* 1.0.3 (`m
 ## License
 
 MIT © NOMBER
+
+---
+
+<p align="center">
+  Made by NOMBER · <a href="https://nomberobsidian.github.io">More plugins &amp; projects</a> · <a href="https://donatre.github.io">Support the project ☕</a>
+</p>
