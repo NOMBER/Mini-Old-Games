@@ -26,6 +26,14 @@ The command palette also has “Play: …”, “Play in tab / popup / hub: …�
 
 Every game has Easy / Normal / Hard, also changeable above the field and on hub cards.
 
+| **Snake** | **Tetris** | **2048** | **Minesweeper** |
+| :---: | :---: | :---: | :---: |
+| <img src="images/snake.jpg" alt="Snake" width="200"> | <img src="images/tetris.jpg" alt="Tetris" width="200"> | <img src="images/2048.jpg" alt="2048" width="200"> | <img src="images/minesweeper.jpg" alt="Minesweeper" width="200"> |
+| **Flappy Bird** | **Breakout** | **Pong** | **Whack-a-Mole** |
+| <img src="images/flappy.jpg" alt="Flappy Bird" width="200"> | <img src="images/breakout.jpg" alt="Breakout" width="200"> | <img src="images/pong.jpg" alt="Pong" width="200"> | <img src="images/whack-a-mole.jpg" alt="Whack-a-Mole" width="200"> |
+| **Memory** | **Space Invaders** | **Sudoku** | **Simon** |
+| <img src="images/memory.jpg" alt="Memory" width="200"> | <img src="images/space-invaders.jpg" alt="Space Invaders" width="200"> | <img src="images/sudoku.jpg" alt="Sudoku" width="200"> | <img src="images/simon.jpg" alt="Simon" width="200"> |
+
 | Game | About | Controls | Difficulty |
 | --- | --- | --- | --- |
 | **Snake** | Eat apples and grow. The snake speeds up every 5 apples. Don’t hit the walls or yourself. | Arrows or WASD — turn. Swipe on the field or on-screen buttons on phones. Space or P — pause, Enter — restart. | Default **Normal**. Changes starting speed and how quickly it ramps up. |
