@@ -1,5 +1,5 @@
 'use strict';
-// Good Old Games — Obsidian plugin entry. Wires the core (registry, sessions, stats, achievements,
+// Mini Old Games — Obsidian plugin entry. Wires the core (registry, sessions, stats, achievements,
 // persistence, i18n) to the UI (hub, tab views, popup, menu, settings).
 const { Plugin, Notice, addIcon } = require('obsidian');
 const i18n = require('./core/i18n');

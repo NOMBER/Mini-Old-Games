@@ -1,6 +1,6 @@
-# Good Old Games
+# Mini Old Games
 
-Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your [Obsidian](https://obsidian.md) vault. Version **1.0.2**. English or Russian UI (English by default). Works on desktop and mobile.
+Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your [Obsidian](https://obsidian.md) vault. Version **1.0.3**. Source: [NOMBER/Mini-Old-Games](https://github.com/NOMBER/Mini-Old-Games). English or Russian UI (English by default). Works on desktop and mobile.
 
 ## Why
 
@@ -100,8 +100,8 @@ A notice appears when you unlock one (you can turn this off). Existing stats als
 
 This plugin is installed manually (it is not in the official Community plugins list).
 
-1. Copy the `good-old-games` folder — with `main.js`, `manifest.json`, `styles.css`, `README.md` and `LICENSE` — into `<vault>/.obsidian/plugins/`.
-2. In Obsidian, open **Settings → Community plugins**, turn off Restricted mode if it is on, and enable **Good Old Games**.
+1. Copy the `mini-old-games` folder — with `main.js`, `manifest.json`, `styles.css`, `README.md` and `LICENSE` — into `<vault>/.obsidian/plugins/`.
+2. In Obsidian, open **Settings → Community plugins**, turn off Restricted mode if it is on, and enable **Mini Old Games**.
 
 Requires Obsidian 1.0.0 or later.
 
@@ -109,7 +109,7 @@ Requires Obsidian 1.0.0 or later.
 
 Stats, achievements and settings are saved in the plugin data file. Older data is **migrated losslessly** (`dataVersion: 2`): unknown fields are kept, missing ones get defaults, and sessions from before difficulty levels existed are assigned to the level that matched the old parameters. Minesweeper still keeps its classic Beginner / Intermediate / Expert records.
 
-If you previously used the *Mini Games* plugin, its saves live under the old plugin id (`mini-games`) and are not picked up automatically.
+If you previously used *Mini Games* (`mini-games`) or *Good Old Games* (`good-old-games`), those saves live under the old plugin id and are not picked up automatically.
 
 ## License
 

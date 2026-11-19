@@ -11,5 +11,5 @@ await build({
   outfile: out,
   logLevel: 'info',
   legalComments: 'none',
-  banner: { js: '/* Good Old Games 1.0.2 for Obsidian — edit src/ and run npm run build */' }
+  banner: { js: '/* Mini Old Games 1.0.3 for Obsidian — edit src/ and run npm run build */' }
 });

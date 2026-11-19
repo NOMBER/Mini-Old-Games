@@ -36,7 +36,7 @@ const REFS = [process.env.MG_OLD || '/tmp/mg13/mini-games/main.js', process.env.
 const New = require(process.env.MG_MAIN || require('path').resolve(__dirname, '../../main.js'));
 const TN = New._test;
 const { mulberry32 } = TN.rng;
-const mk = async (C, data) => { const app = {}; app.workspace = new mock.Workspace(app); const p = new C(app, { id: 'good-old-games' }); if (data) p._data = JSON.parse(JSON.stringify(data)); await p.onload(); return p; };
+const mk = async (C, data) => { const app = {}; app.workspace = new mock.Workspace(app); const p = new C(app, { id: 'mini-old-games' }); if (data) p._data = JSON.parse(JSON.stringify(data)); await p.onload(); return p; };
 async function compare(ref) {
   const Old = require(ref), TO = Old._test, tag = path.basename(path.dirname(path.dirname(ref)));
   // ---- definitions ----

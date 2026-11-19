@@ -42,7 +42,7 @@ function key(el, k, code, type) { el.dispatchEvent(new win.KeyboardEvent(type ||
 (async () => {
   if (!T.registry.get('simon')) { console.log('1.4 games not registered — skipped'); console.log('ALL 1.4 GAME TESTS PASSED'); return; }
   const app = {}; app.workspace = new mock.Workspace(app);
-  const plugin = new PluginClass(app, { id: 'good-old-games' }); await plugin.onload();
+  const plugin = new PluginClass(app, { id: 'mini-old-games' }); await plugin.onload();
   assert.equal(plugin.settings.simonSound, true, 'simonSound default on');
   ['invaders', 'sudoku', 'simon'].forEach(id => { ['', '-tab', '-popup', '-hub'].forEach(s => assert.ok(plugin.commands.find(c => c.id === 'play-' + id + s), id + s)); assert.ok(mock.log.icons['mini-games-' + id]); });
 
