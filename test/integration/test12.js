@@ -28,7 +28,7 @@ Module._resolveFilename = function (req, ...a) { if (req === 'obsidian') return 
 const errors = [];
 const origErr = console.error; console.error = (...a) => { errors.push(a.map(String).join(' ')); origErr('[console.error]', ...a); };
 
-const PluginClass = require(process.env.MG_MAIN || '/workspace/good-old-games/main.js');
+const PluginClass = require(process.env.MG_MAIN || require('path').resolve(__dirname, '../../main.js'));
 const T = PluginClass._test;
 
 function ptr(el, type, x, y, extra) {

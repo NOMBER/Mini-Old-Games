@@ -1,8 +1,8 @@
 {
   "name": "good-old-games-src",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "build": "node build.mjs",
     "test": "node --test test/unit/*.test.js && node test/integration/run.js",

@@ -30,7 +30,7 @@ const origErr = console.error; console.error = (...a) => { errors.push(a.map(Str
 
 
 // 1.4 games (Space Invaders, Sudoku, Simon) running on the 2.0 core: UI wiring, Simon sound, cleanup.
-const PluginClass = require(process.env.MG_MAIN || '/workspace/good-old-games/main.js');
+const PluginClass = require(process.env.MG_MAIN || require('path').resolve(__dirname, '../../main.js'));
 const T = PluginClass._test;
 // WebAudio stub: counts contexts, tones and closes
 const audio = { made: 0, tones: 0, closed: 0 };

@@ -33,7 +33,7 @@ const origErr = console.error; console.error = (...a) => { errors.push(a.map(Str
 // same ids, strings, commands, stats and achievement values; old data upgrades losslessly.
 const fs = require('fs');
 const REFS = [process.env.MG_OLD || '/tmp/mg13/mini-games/main.js', process.env.MG_OLD14 || '/tmp/mg14/mini-games/main.js'].filter(f => fs.existsSync(f));
-const New = require(process.env.MG_MAIN || '/workspace/good-old-games/main.js');
+const New = require(process.env.MG_MAIN || require('path').resolve(__dirname, '../../main.js'));
 const TN = New._test;
 const { mulberry32 } = TN.rng;
 const mk = async (C, data) => { const app = {}; app.workspace = new mock.Workspace(app); const p = new C(app, { id: 'good-old-games' }); if (data) p._data = JSON.parse(JSON.stringify(data)); await p.onload(); return p; };

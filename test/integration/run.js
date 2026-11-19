@@ -1,5 +1,5 @@
 'use strict';
-// Runs the mock-Obsidian integration suites against the built bundle (MG_MAIN, default /workspace/good-old-games/main.js).
+// Runs the mock-Obsidian integration suites against the built bundle (MG_MAIN, default ./main.js at the repo root).
 const { spawnSync } = require('child_process'); const path = require('path'); const fs = require('fs');
 const suites = ['test.js', 'test12.js', 'test13.js', 'test14.js'];
 if (fs.existsSync(process.env.MG_OLD || '/tmp/mg13/mini-games/main.js')) suites.push('compat.js'); else console.log('(compat.js skipped: no 1.3.0 reference bundle; unzip mini-games-1.3.0.zip to /tmp/mg13)');

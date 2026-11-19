@@ -1,6 +1,6 @@
 # Good Old Games
 
-Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your [Obsidian](https://obsidian.md) vault. Version **1.0.0**. English or Russian UI (English by default). Works on desktop and mobile.
+Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your [Obsidian](https://obsidian.md) vault. Version **1.0.1**. English or Russian UI (English by default). Works on desktop and mobile.
 
 ## Why
 
