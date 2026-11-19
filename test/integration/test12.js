@@ -44,7 +44,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   const D = {}; T.GAMES.forEach(g => { if (g.meta.difficulties && g.id !== 'minesweeper') D[g.id] = g.meta.difficulties; });
   // ---------- 1. tab view constructor is null-safe (real Obsidian calls getters in ItemView ctor) ----------
   const appA = {}; appA.workspace = new mock.Workspace(appA);
-  const pA = new PluginClass(appA, { id: 'mini-old-games' }); await pA.onload();
+  const pA = new PluginClass(appA, { id: 'good-old-games' }); await pA.onload();
   for (const id of Object.keys(T.GAME_VIEW_CLASSES)) {
     const leaf = appA.workspace.getLeaf('tab');
     const v = new T.GAME_VIEW_CLASSES[id](leaf, pA);
@@ -57,7 +57,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
   // ---------- 2. in-hub play ----------
   const app = {}; app.workspace = new mock.Workspace(app);
-  const plugin = new PluginClass(app, { id: 'mini-old-games' }); await plugin.onload();
+  const plugin = new PluginClass(app, { id: 'good-old-games' }); await plugin.onload();
   const hubLeaf = await plugin.openHub('games');
   assert.ok(hubLeaf && hubLeaf.view.getViewType() === 'mini-games-hub', 'openHub returns leaf');
   const hv = hubLeaf.view, root = hv.containerEl;
@@ -209,7 +209,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
   // ---------- 6. migration of old stats ----------
   const app3 = {}; app3.workspace = new mock.Workspace(app3);
-  const p3 = new PluginClass(app3, { id: 'mini-old-games' });
+  const p3 = new PluginClass(app3, { id: 'good-old-games' });
   p3._data = { settings: { language: 'en', ribbonAction: 'menu', launchMode: 'tab', msDifficulty: 'hard' }, stats: { games: {
     snake: { played: 5, best: 12, wins: 0 }, flappy: { played: 3, best: 7 }, memory: { played: 2, best: 150, wins: 2, bestMoves: 9, bestTime: 40000 }, pong: { played: 4, best: 7, wins: 1 } } } };
   await p3.onload();
@@ -221,7 +221,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   assert.deepEqual(G.tetris.byDiff, {}); assert.deepEqual(G.minesweeper.byDiff, {});
   assert.equal(p3.settings.msDifficulty, 'hard'); assert.deepEqual(p3.settings.difficulty, { minesweeper: 'hard' }); assert.equal(p3.settings.launchMode, 'tab');
   // second load of migrated data is idempotent
-  const p4 = new PluginClass(app3, { id: 'mini-old-games' }); p4._data = JSON.parse(JSON.stringify(p3._data || { settings: p3.settings, stats: p3.stats }));
+  const p4 = new PluginClass(app3, { id: 'good-old-games' }); p4._data = JSON.parse(JSON.stringify(p3._data || { settings: p3.settings, stats: p3.stats }));
   await p4.onload(); assert.deepEqual(p4.stats.games.snake.byDiff, G.snake.byDiff);
   p3.onunload(); p4.onunload();
   console.log('migration OK');

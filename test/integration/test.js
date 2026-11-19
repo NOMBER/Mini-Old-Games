@@ -41,7 +41,7 @@ function key(el, k, code, type) { el.dispatchEvent(new win.KeyboardEvent(type ||
 
 (async () => {
   const app = {}; app.workspace = new mock.Workspace(app);
-  const plugin = new PluginClass(app, { id: 'mini-old-games' });
+  const plugin = new PluginClass(app, { id: 'good-old-games' });
   await plugin.onload();
   assert.equal(mock.log.notices.length, 0, 'no load notices: ' + mock.log.notices);
   const NG = T.GAMES.length; assert.equal(Object.keys(mock.log.icons).length, NG + 1);
@@ -220,7 +220,7 @@ function key(el, k, code, type) { el.dispatchEvent(new win.KeyboardEvent(type ||
   console.log('i18n parity OK:', en.length, 'keys,', used.length, 'literal uses');
   // Live switch with hub + tab game + popup open
   const app2 = {}; app2.workspace = new mock.Workspace(app2);
-  const p2 = new PluginClass(app2, { id: 'mini-old-games' });
+  const p2 = new PluginClass(app2, { id: 'good-old-games' });
   p2._data = { settings: { ribbonAction: 'menu', launchMode: 'popup' }, stats: { games: { snake: { played: 5, best: 12 } } } }; // old v1.0 data, no language
   await p2.onload();
   assert.equal(p2.settings.language, 'en'); assert.equal(p2.stats.games.snake.played, 5); assert.equal(p2.stats.games.pong.played, 0); assert.ok(p2.stats.games.memory);

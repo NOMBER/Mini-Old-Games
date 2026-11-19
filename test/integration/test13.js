@@ -52,7 +52,7 @@ function key(el, k, code, type) { el.dispatchEvent(new win.KeyboardEvent(type ||
 
   // ---- fresh plugin, live unlocking ----
   const app = {}; app.workspace = new mock.Workspace(app);
-  const plugin = new PluginClass(app, { id: 'mini-old-games' }); await plugin.onload();
+  const plugin = new PluginClass(app, { id: 'good-old-games' }); await plugin.onload();
   assert.deepEqual(plugin.stats.ach, {}); assert.equal(mock.log.notices.length, 0, 'no notices on fresh load');
   assert.equal(plugin.settings.achNotify, true);
   let nb = mock.log.notices.length;
@@ -178,7 +178,7 @@ function key(el, k, code, type) { el.dispatchEvent(new win.KeyboardEvent(type ||
     minesweeper: { played: 4, wins: 2, winsByDiff: { easy: 1, medium: 1 }, playedByDiff: { easy: 2, medium: 2 }, bestTimes: { easy: 45000, medium: 200000 }, lastPlayed: t0 + 3 * day + 1000 },
     pong: { played: 1, wins: 1, best: 7, bestMargin: 7, lastPlayed: t0 + 4 * day } } } };
   const app3 = {}; app3.workspace = new mock.Workspace(app3);
-  const p3 = new PluginClass(app3, { id: 'mini-old-games' }); p3._data = JSON.parse(JSON.stringify(old));
+  const p3 = new PluginClass(app3, { id: 'good-old-games' }); p3._data = JSON.parse(JSON.stringify(old));
   nb = mock.log.notices.length; await p3.onload();
   const U = p3.stats.ach;
   ['first', 's10', 'sn_len10', 'sn_games10', 'tw_256', 'tw_1024', 'me_win', 'me_perfect', 'ms_easy', 'ms_medium', 'ms_fast', 'po_win', 'po_shutout', 'wins3'].forEach(id => assert.ok(U[id], 'retro ' + id));
@@ -190,11 +190,11 @@ function key(el, k, code, type) { el.dispatchEvent(new win.KeyboardEvent(type ||
   assert.ok(p3._data.stats.ach && Object.keys(p3._data.stats.ach).length === retroN, 'retro saved');
   assert.ok(T.achValue(p3, A.find(a => a.id === 't1h')) === 50, 't1h progress minutes');
   // second load: nothing new, no notice, dates preserved
-  const p4 = new PluginClass(app3, { id: 'mini-old-games' }); p4._data = JSON.parse(JSON.stringify(p3._data));
+  const p4 = new PluginClass(app3, { id: 'good-old-games' }); p4._data = JSON.parse(JSON.stringify(p3._data));
   nb = mock.log.notices.length; await p4.onload(); assert.equal(mock.log.notices.length, nb, 'no notice on reload'); assert.deepEqual(p4.stats.ach, p3.stats.ach);
   assert.equal(p4.stats.days.length, 4, 'days not duplicated');
   // corrupt fields tolerated
-  const p5 = new PluginClass(app3, { id: 'mini-old-games' }); p5._data = { stats: { ach: 'oops', days: 'x', games: {} } }; await p5.onload(); assert.deepEqual(p5.stats.ach, {}); assert.deepEqual(p5.stats.days, []);
+  const p5 = new PluginClass(app3, { id: 'good-old-games' }); p5._data = { stats: { ach: 'oops', days: 'x', games: {} } }; await p5.onload(); assert.deepEqual(p5.stats.ach, {}); assert.deepEqual(p5.stats.days, []);
   p3.onunload(); p4.onunload(); p5.onunload();
   console.log('retroactive awarding OK:', retroN, 'from old data');
 
