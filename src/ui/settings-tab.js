@@ -3,10 +3,12 @@ const { PluginSettingTab, Setting } = require('obsidian');
 const { t } = require('../core/i18n');
 const registry = require('../core/registry');
 const { hasDiff, gameDiff, diffLabel, DIFF_KEYS } = require('../core/difficulty');
+const { addSettings } = require('../obsigama');
 class MiniGamesSettingTab extends PluginSettingTab {
-  constructor(app, plugin) { super(app, plugin); this.mgPlugin = plugin; }
+  constructor(app, plugin) { super(app, plugin); this.mgPlugin = plugin; this.disposeObsigama = null; }
   display() {
     const p = this.mgPlugin, el = this.containerEl;
+    this.stopObsigama();
     el.empty();
     new Setting(el).setName(t('set.lang')).setDesc(t('set.langDesc'))
       .addDropdown(d => d.addOption('en', 'English').addOption('ru', 'Русский').setValue(p.settings.language)
@@ -44,6 +46,13 @@ class MiniGamesSettingTab extends PluginSettingTab {
       .addToggle(tg => tg.setValue(p.settings.achNotify !== false).onChange(async (v) => { p.settings.achNotify = v; await p.saveAll(); }));
     new Setting(el).setName(t('set.reset')).setDesc(t('set.resetDesc'))
       .addButton(b => b.setButtonText(t('set.resetBtn')).setWarning().onClick(() => p.confirmReset(() => this.display())));
+    // optional OBSIGAMA sync: toggle (off by default) + live status, drawn by the SDK
+    this.disposeObsigama = addSettings(el, p.obsigama, p.settings.language);
+  }
+  hide() { this.stopObsigama(); }
+  stopObsigama() {
+    const d = this.disposeObsigama; this.disposeObsigama = null;
+    if (typeof d === 'function') { try { d(); } catch (e) { console.warn('[mini-games] OBSIGAMA settings dispose', e); } }
   }
 }
 module.exports = { MiniGamesSettingTab };
