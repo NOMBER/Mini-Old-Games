@@ -1,6 +1,6 @@
 # Mini Old Games
 
-Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your [Obsidian](https://obsidian.md) vault. Version **1.0.4**. Source: [NOMBER/Mini-Old-Games](https://github.com/NOMBER/Mini-Old-Games). English or Russian UI (English by default). Works on desktop and mobile.
+Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your [Obsidian](https://obsidian.md) vault. Version **1.1.0**. Source: [NOMBER/Mini-Old-Games](https://github.com/NOMBER/Mini-Old-Games). English or Russian UI (English by default). Works on desktop and mobile.
 
 ## Why
 
@@ -10,7 +10,7 @@ Sometimes you just need a two-minute break.
 - Step away from heavy note-taking or studying **without leaving Obsidian**.
 - Use a short game as a **pomodoro-style reset** between work sessions.
 - Chase **achievements** for a little fun and motivation.
-- Everything stays **offline**, with **no ads and no accounts**.
+- Everything stays **offline** by default, with **no ads and no accounts** inside the game.
 
 ## Features
 
@@ -94,7 +94,18 @@ A notice appears when you unlock one (you can turn this off). Existing stats als
 | Simon sounds | **On** — tones via Web Audio (no sound files). Also toggled with M or the button above the field. |
 | Achievement notifications | **On** — show a “🏆 …” notice when you unlock an achievement |
 | Statistics | Buttons to open statistics, achievements, or all games, plus a total session count |
+| Connect to OBSIGAMA | **Off** — optional sync with the OBSIGAMA game hub, with a live sync status (see below) |
 | Reset statistics | Deletes best scores, history and achievements for all games. This cannot be undone (you get a confirmation). |
+
+## Optional: OBSIGAMA sync
+
+Mini Old Games works fully offline and never makes network requests itself.
+If you also install the [OBSIGAMA](https://github.com/NOMBER/ObsiGama) plugin (a game hub for Obsidian) and turn on
+**Settings → Mini Old Games → Connect to OBSIGAMA** (off by default), the game hands your results to OBSIGAMA after
+each game: per-game play count, best score, wins, play time and unlocked achievements. OBSIGAMA then sends them to its
+online service (Supabase) under your OBSIGAMA account, where they appear on your profile and leaderboards.
+Nothing is sent while the toggle is off, OBSIGAMA is not installed, or OBSIGAMA's own online switch is off.
+Turning the toggle off stops syncing; local stats are never changed.
 
 ## Installation
 
@@ -107,13 +118,17 @@ Requires Obsidian 1.0.0 or later.
 
 ## Data
 
-Stats, achievements and settings are saved in the plugin data file. Older data is **migrated losslessly** (`dataVersion: 2`): unknown fields are kept, missing ones get defaults, and sessions from before difficulty levels existed are assigned to the level that matched the old parameters. Minesweeper still keeps its classic Beginner / Intermediate / Expert records.
+Stats, achievements and settings are saved in the plugin data file (`data.json`). The optional OBSIGAMA sync keeps its own small file, `obsigama-sync.json`, and never touches `data.json`. Older data is **migrated losslessly** (`dataVersion: 2`): unknown fields are kept, missing ones get defaults, and sessions from before difficulty levels existed are assigned to the level that matched the old parameters. Minesweeper still keeps its classic Beginner / Intermediate / Expert records.
 
 If you previously used *Mini Games* (`mini-games`) or *Mini Old Games* 1.0.3 (`mini-old-games`), those saves live under the old plugin id and are not picked up automatically.
 
+## Changelog
+
+- **1.1.0** — optional OBSIGAMA sync (off by default): stats, best scores and achievements can be shared with the OBSIGAMA game hub. Gameplay and saves are unchanged.
+
 ## License
 
-MIT © NOMBER
+MIT © NOMBER. Bundles [@obsigama/sdk](https://github.com/NOMBER/ObsiGama) (MIT, see `src/obsigama/sdk/LICENSE`).
 
 ---
 
