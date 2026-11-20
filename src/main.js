@@ -19,6 +19,7 @@ const { MiniGamesSettingTab } = require('./ui/settings-tab');
 const { showGamesMenu } = require('./ui/menu');
 const statsView = require('./ui/stats-view');
 const { errText } = require('./ui/dom');
+const { initObsigama, sendSession } = require('./obsigama');
 const GAME_VIEW_CLASSES = buildViewClasses();
 
 class MiniGamesPlugin extends Plugin {
@@ -51,12 +52,28 @@ class MiniGamesPlugin extends Plugin {
         this.addCommand({ id: 'play-' + g.id + '-hub', name: t('cmd.playHub', { name }), callback: () => this.openGame(g.id, 'hub') });
       });
       this.addSettingTab(new MiniGamesSettingTab(this.app, this));
+      // optional OBSIGAMA sync (off until the player turns it on); never throws, works offline
+      this.obsigama = await initObsigama(this);
     } catch (e) {
       console.error('[mini-games] load error', e);
       new Notice(t('notice.loadError', { e: errText(e) }), 10000);
     }
   }
-  onunload() { this.closePopup(); }
+  onunload() {
+    this.closePopup();
+    // record runs still open in tabs / the hub now (once), while the OBSIGAMA client is alive
+    this.finishOpenSessions();
+    if (this.obsigama) { try { this.obsigama.destroy(); } catch (e) { console.warn('[mini-games] OBSIGAMA destroy', e); } }
+    this.obsigama = null;
+  }
+  finishOpenSessions() {
+    try {
+      const ws = this.app.workspace, hosts = [];
+      ws.getLeavesOfType(HUB_VIEW).forEach(l => { if (l.view && l.view.hubHost) hosts.push(l.view.hubHost); });
+      registry.list().forEach(g => ws.getLeavesOfType(GAME_VIEW_PREFIX + g.id).forEach(l => { if (l.view && l.view.mgHost) hosts.push(l.view.mgHost); }));
+      hosts.forEach(h => { try { if (!h.closed) h.finishSession(); } catch (e) { console.error('[mini-games] finish', e); } });
+    } catch (e) { console.error('[mini-games] finish sessions', e); }
+  }
   saveAll() { return this.saveData({ settings: this.settings, stats: this.stats }); }
   saveSoon() { Promise.resolve(this.saveAll()).catch(e => console.error('[mini-games] save', e)); }
 
@@ -151,6 +168,7 @@ class MiniGamesPlugin extends Plugin {
     const now = Date.now();
     recordSession(this.stats, g, r, now);
     const fresh = engine.onSession(this.stats, id, r, now);
+    sendSession(this.obsigama, id, r, fresh); // exactly one OBSIGAMA endRun per run (no-op without the SDK)
     this.saveSoon();
     this.refreshHubs();
     if (fresh.length) this.notifyAchievements(fresh);
