@@ -66,12 +66,23 @@ function fakeHub() {
     submit: async (req) => {
       h.submits.push(JSON.parse(JSON.stringify(req)));
       if (h.offline) return { ok: false, error: 'network', message: 'offline' };
-      const results = req.events.map(e => { const dup = h.idems.has(e.idem); if (dup) h.resent++; h.idems.add(e.idem); return { idem: e.idem, status: dup ? 'duplicate' : 'accepted' }; });
+      const results = req.events.map(e => { const dup = h.idems.has(e.idem); if (dup) h.resent++; else h.apply(e); h.idems.add(e.idem); return { idem: e.idem, status: dup ? 'duplicate' : 'accepted' }; });
       return { ok: true, results, unlocked: [], badges: [], stats: {} };
     },
     openHub: () => { h.opened++; }
   };
   h.changed = () => h.cbs.forEach(cb => cb(h.api.getStatus()));
+  // server model like ingest_batch: every sum/count delta event is clamped to maxDelta (default 1e6),
+  // snapshots merge as totals (max), stat max caps the value
+  const GM = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../src/obsigama/obsigama-manifest.json'), 'utf8'));
+  h.server = {};
+  const put = (id, v, asTotal) => { const d = GM.stats.find(x => x.id === id); if (!d || typeof v !== 'number') return;
+    const cur = h.server[id] || 0; let n;
+    if (d.agg === 'sum' || d.agg === 'count') n = asTotal ? Math.max(cur, v) : cur + Math.min(v, d.maxDelta != null ? d.maxDelta : 1e6);
+    else n = h.server[id] == null ? v : Math.max(cur, v);
+    if (d.max != null) n = Math.min(n, d.max); h.server[id] = n; };
+  h.apply = (e) => { if (e.type === 'stat') put(e.payload.id, e.payload.value, false);
+    if (e.type === 'snapshot') Object.entries(e.payload.stats).forEach(([k, v]) => put(k, v, true)); };
   return h;
 }
 async function load(app, data) {
@@ -230,6 +241,19 @@ const toolbarRestart = (root) => root.querySelectorAll('.mg-toolbar button')[1];
   assert.ok(/pending/.test(stRow.desc), 'status shows queue: ' + stRow.desc);
   hub.offline = false; stRow.controls[0].c.click(); await settle();
   assert.equal(p.obsigama.getStatus().pending, 0, 'queue delivered'); assert.ok(/Synced/.test(stRow.desc), stRow.desc);
+  // OBSIGAMA switched off after linking: deltas stay unsent and get merged (compact) before sending.
+  // SDK 0.1.1: 2 wins while off arrive as 2 even though the server clamps each event to maxDelta 1
+  const srvWins = hub.server.wins, srv2048 = hub.server['2048.wins'], srvRuns = hub.server.runs;
+  hub.status.enabled = false; hub.changed();
+  for (let i = 0; i < 2; i++) { await p.openGame('2048', 'popup'); finish(p.mgPopup.host, 3 + i, true); p.closePopup(); await settle(); }
+  assert.ok(p.obsigama.getStatus().pending > 0, 'queued while OBSIGAMA is off');
+  hub.status.enabled = true; hub.changed(); await settle();
+  assert.equal(p.obsigama.getStatus().pending, 0, 'sent when OBSIGAMA is back');
+  assert.equal(hub.server.wins - srvWins, 2, '2 offline wins counted as 2 (global)');
+  assert.equal(hub.server['2048.wins'] - srv2048, 2, '2 offline wins counted as 2 (2048)');
+  assert.equal(hub.server.runs - srvRuns, 2, '2 offline runs counted as 2');
+  ['wins', 'runs', '2048.wins', '2048.runs', 'playtime_ms'].forEach(k => assert.equal(hub.server[k], p.obsigama.getStats()[k], 'server == local SDK total for ' + k));
+  assert.equal(hub.resent, 0, 'no events re-sent'); assert.ok(hub.submits.every(r => r.manifestVersion === 2), 'manifest v2');
   const accepted = hub.submits.filter((s, i) => i > 1).flatMap(s => s.events);
   assert.ok(accepted.length > 0);
   assert.equal(hub.links, 1, 'no second consent');

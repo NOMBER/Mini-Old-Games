@@ -124,11 +124,11 @@ If you previously used *Mini Games* (`mini-games`) or *Mini Old Games* 1.0.3 (`m
 
 ## Changelog
 
-- **1.1.0** — optional OBSIGAMA sync (off by default): stats, best scores and achievements can be shared with the OBSIGAMA game hub. Gameplay and saves are unchanged.
+- **1.1.0** — optional OBSIGAMA sync (off by default): stats, best scores and achievements can be shared with the OBSIGAMA game hub. Gameplay and saves are unchanged (bundled @obsigama/sdk 0.1.1, OBSIGAMA game manifest v2 with score caps: Pong 7, Minesweeper 381, Sudoku 3000, Memory 280).
 
 ## License
 
-MIT © NOMBER. Bundles [@obsigama/sdk](https://github.com/NOMBER/ObsiGama) (MIT, see `src/obsigama/sdk/LICENSE`).
+MIT © NOMBER. Bundles [@obsigama/sdk](https://github.com/NOMBER/ObsiGama) 0.1.1 (MIT, see `src/obsigama/sdk/LICENSE`).
 
 ---
 
