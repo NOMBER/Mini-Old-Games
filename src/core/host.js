@@ -19,6 +19,7 @@ class GameHost {
     this.paused = false; this.playMs = 0; this.recorded = false; this.closed = false;
     this.handlers = []; this.timeouts = new Set(); this.loop = null; this.frames = 0;
     this.ptrDown = false; this.overAt = 0; this.lastInfo = ''; this.newRecord = false; this.labels = [];
+    this.helpOpen = false; this.helpResumeOnClose = false; this.helpEl = null;
     const host = this;
     // controller handed to the game's UI module
     this.ctl = {
@@ -35,6 +36,9 @@ class GameHost {
     this.lastInfo = '';
     if (this.ui.relabel) this.ui.relabel(this.ctl);
     if (this.diffSel) Array.from(this.diffSel.options).forEach(o => { o.textContent = diffLabel(this.def, o.value); });
+    if (this.helpBtn) { this.helpBtn.setAttribute('aria-label', t('help.title')); this.helpBtn.setAttribute('title', t('help.title')); }
+    if (this.helpCloseBtn) this.helpCloseBtn.setAttribute('aria-label', t('help.close'));
+    if (this.helpOpen) this.mgFillHelpLists();
   }
   mgStats() { return statsForDiff(this.plugin.stats.games[this.def.id], this.def, this.game && this.game.diff); }
   mgSyncDiff() { if (this.diffSel) this.diffSel.value = gameDiff(this.plugin.settings, this.def); }
@@ -52,6 +56,7 @@ class GameHost {
   mount(root) {
     const compact = !!this.opts.compact;
     const wrap = root.createDiv({ cls: 'mg-wrap' + (compact ? ' mg-compact' : '') });
+    this.wrap = wrap;
     this.game = new GameSession(this.def, { settings: this.plugin.settings, rng: this.opts.rng, onEvent: (e) => this.onRuleEvent(e) });
     if (!compact && !this.opts.noHead) {
       const head = wrap.createDiv({ cls: 'mg-head' });
@@ -62,7 +67,11 @@ class GameHost {
     const bar = wrap.createDiv({ cls: 'mg-toolbar' });
     this.pauseBtn = bar.createEl('button');
     this.mgBind(this.pauseBtn, () => t(this.paused ? 'common.resume' : 'common.pause'));
-    this.mgListen(this.pauseBtn, 'click', () => { if (!this.game.over) this.mgPause(!this.paused); this.mgFocus(); });
+    this.mgListen(this.pauseBtn, 'click', () => {
+      if (this.helpOpen) { this.mgHideHelp(); this.mgFocus(); return; }
+      if (!this.game.over) this.mgPause(!this.paused);
+      this.mgFocus();
+    });
     const rb = this.mgBind(bar.createEl('button'), () => t('common.restart'));
     this.mgListen(rb, 'click', () => { this.mgRestart(); this.mgFocus(); });
     if (hasDiff(this.def)) {
@@ -73,6 +82,18 @@ class GameHost {
       this.mgListen(sel, 'change', () => { this.plugin.setGameDiff(this.def.id, sel.value); this.mgRestart(); this.mgFocus(); });
     }
     if (this.ui.controls) this.ui.controls(this.ctl, bar);
+    this.helpBtn = bar.createEl('button', { cls: 'mg-help-btn', attr: { type: 'button', 'aria-expanded': 'false' } });
+    this.mgBind(this.helpBtn, () => t('help.btn'));
+    this.helpBtn.setAttribute('aria-label', t('help.title'));
+    this.helpBtn.setAttribute('title', t('help.title'));
+    this.mgListen(this.helpBtn, 'click', (e) => { e.preventDefault(); e.stopPropagation(); this.mgToggleHelp(); });
+
+    this.mgListen(wrap, 'keydown', (e) => {
+      if (!this.helpOpen) return;
+      const k = normKey(e);
+      if (k === 'escape' || k === '?' || k === 'enter' || k === ' ' || k === 'p') this.mgHideHelp();
+      e.preventDefault(); e.stopPropagation();
+    });
 
     this.cvs = wrap.createEl('canvas', { cls: 'mg-canvas', attr: { tabindex: '0' } });
     this.g2d = this.cvs.getContext('2d');
@@ -161,6 +182,60 @@ class GameHost {
     const info = this.ui.info ? this.ui.info(this.ctl, st) : t('info.basic', { score: this.game.score, best: st.best || 0 });
     if (info !== this.lastInfo) { this.lastInfo = info; this.infoEl.setText(info); }
   }
+  mgToggleHelp() { if (this.helpOpen) this.mgHideHelp(); else this.mgShowHelp(); }
+  mgShowHelp() {
+    if (this.closed || this.helpOpen || !this.wrap) return;
+    this.helpOpen = true;
+    this.helpResumeOnClose = !this.paused && !this.game.over;
+    if (this.helpResumeOnClose) this.mgPause(true);
+    if (!this.helpEl) this.mgBuildHelp();
+    this.helpEl.style.display = '';
+    this.helpEl.removeClass('is-hidden');
+    if (this.helpBtn) this.helpBtn.setAttribute('aria-expanded', 'true');
+    try { if (this.helpCloseBtn) this.helpCloseBtn.focus(); } catch (e) { /* */ }
+  }
+  mgHideHelp(opts) {
+    if (!this.helpOpen) return;
+    this.helpOpen = false;
+    if (this.helpEl) this.helpEl.style.display = 'none';
+    if (this.helpBtn) this.helpBtn.setAttribute('aria-expanded', 'false');
+    const resume = !opts || opts.resume !== false;
+    if (resume && this.helpResumeOnClose && this.paused && !this.game.over) this.mgPause(false);
+    this.helpResumeOnClose = false;
+    if (resume) this.mgFocus();
+  }
+  mgBuildHelp() {
+    const el = this.wrap.createDiv({ cls: 'mg-help', attr: { role: 'dialog', 'aria-modal': 'true' } });
+    this.helpEl = el;
+    this.mgListen(el, 'pointerdown', (e) => { if (e.target === el) this.mgHideHelp(); });
+    const card = el.createDiv({ cls: 'mg-help-card' });
+    const head = card.createDiv({ cls: 'mg-help-head' });
+    this.mgBind(head.createEl('h3'), () => t('help.title') + ' — ' + gName(this.def));
+    const close = head.createEl('button', { cls: 'mg-help-close', attr: { type: 'button' } });
+    this.helpCloseBtn = close;
+    close.setText('✕');
+    close.setAttribute('aria-label', t('help.close'));
+    close.setAttribute('title', t('help.close'));
+    this.mgListen(close, 'click', (e) => { e.preventDefault(); e.stopPropagation(); this.mgHideHelp(); });
+    this.mgBind(card.createEl('h4'), () => t('help.goal'));
+    this.mgBind(card.createEl('p', { cls: 'mg-help-goal' }), () => t('g.' + this.def.id + '.help.goal'));
+    this.mgBind(card.createEl('h4'), () => t('help.controls'));
+    this.helpControls = card.createEl('ul', { cls: 'mg-help-list' });
+    this.mgBind(card.createEl('h4'), () => t('help.rules'));
+    this.helpRules = card.createEl('ul', { cls: 'mg-help-list' });
+    this.mgBind(card.createEl('p', { cls: 'mg-muted mg-help-hint' }), () => t('help.closeHint'));
+    this.mgFillHelpLists();
+  }
+  mgFillHelpLists() {
+    const fill = (ul, key) => {
+      if (!ul) return;
+      ul.empty();
+      t(key).split('\n').filter(Boolean).forEach(line => ul.createEl('li', { text: line }));
+    };
+    const id = this.def.id;
+    fill(this.helpControls, 'g.' + id + '.controls');
+    fill(this.helpRules, 'g.' + id + '.help.rules');
+  }
   mgPause(v) {
     if (this.game.over) v = false;
     this.paused = v;
@@ -186,6 +261,7 @@ class GameHost {
     }
   }
   mgRestart() {
+    this.mgHideHelp({ resume: false });
     this.finishSession();
     this.recorded = false; this.newRecord = false; this.playMs = 0; this.mgPause(false);
     this.mgSyncDiff();
@@ -196,6 +272,12 @@ class GameHost {
   onKeyDown(e) {
     const k = normKey(e);
     let handled = false;
+    if (this.helpOpen) {
+      if (k === 'escape' || k === '?' || k === 'enter' || k === ' ' || k === 'p') this.mgHideHelp();
+      e.preventDefault(); e.stopPropagation();
+      return;
+    }
+    if (k === '?') { this.mgShowHelp(); e.preventDefault(); e.stopPropagation(); return; }
     if (k === 'enter') { this.mgRestart(); handled = true; }
     else if (this.game.over) handled = k === ' ';
     else if (this.paused) { if (k === 'p' || k === ' ') { this.mgPause(false); handled = true; } }
@@ -214,6 +296,7 @@ class GameHost {
     const p = this.pos(e);
     this.ptrDown = true; this.ptrStart = { x: p.x, y: p.y };
     try { if (e.pointerId !== undefined && this.cvs.setPointerCapture) this.cvs.setPointerCapture(e.pointerId); } catch (er) { /* */ }
+    if (this.helpOpen) { this.swallow = true; return; }
     if (this.paused) { this.mgPause(false); this.swallow = true; return; }
     if (this.game.over) { if (this.ui.tapRestart && Date.now() - this.overAt > 700) this.mgRestart(); this.swallow = true; return; }
     this.swallow = false;
@@ -237,6 +320,7 @@ class GameHost {
   destroy() {
     if (this.closed) return;
     this.closed = true;
+    this.mgHideHelp({ resume: false });
     if (this.loop) { this.loop.stop(); this.loop = null; }
     this.timeouts.forEach(id => window.clearTimeout(id)); this.timeouts.clear();
     this.handlers.forEach(([el, ty, fn, o]) => el.removeEventListener(ty, fn, o)); this.handlers = [];

@@ -1,0 +1,57 @@
+'use strict';
+// Short how-to-play guides shown from the in-game “?” button. Keys must exist in both languages.
+// Hub cards still use g.<id>.rules / g.<id>.controls; this file is only the overlay.
+module.exports = {
+  en: {
+    'g.snake.help.goal': "Eat apples, grow, and last as long as you can.",
+    'g.snake.help.rules': "Don’t hit the walls or yourself.\nYou can’t turn back on yourself in one move.\nThe snake speeds up every 5 apples.",
+    'g.tetris.help.goal': "Stack the falling pieces and clear complete lines.",
+    'g.tetris.help.rules': "← → move, ↑ / W / X rotate, Z rotate the other way.\n↓ is a soft drop; Space is a hard drop (instant).\nOn a phone: tap to rotate, drag to move, a quick swipe down to hard-drop.\nEvery 10 lines is a new level and pieces fall faster.\nClearing 4 lines at once (a Tetris) scores the most.\nThe game ends when a new piece can’t enter the field.",
+    'g.2048.help.goal': "Slide tiles and merge equals until you reach 2048 — then you can keep going.",
+    'g.2048.help.rules': "The whole board slides at once; two tiles of the same number merge into one twice as big.\nAfter each move a new 2 (sometimes 4) appears in an empty cell.\nEasy is 5×5, Normal 4×4, Hard 3×3.\nThe game ends when the board is full and no merge is possible.",
+    'g.minesweeper.help.goal': "Open every safe cell without detonating a mine.",
+    'g.minesweeper.help.rules': "The first click is always safe.\nA number is how many mines are in the eight neighbouring cells.\nLeft-click opens a cell. Right-click, a long press, F, or Flags mode plants a flag.\nClick an open number whose flags already match it to open the rest (a “chord”).\nWin by opening all cells that are not mines.",
+    'g.flappy.help.goal': "Fly through the gaps and pass as many pipes as you can.",
+    'g.flappy.help.rules': "Space, ↑, W, a click or a tap flaps.\nThe bird hovers until the first flap.\nDon’t hit a pipe or the ground.",
+    'g.breakout.help.goal': "Break all the bricks with the ball and clear levels.",
+    'g.breakout.help.rules': "Move the paddle with the mouse, a finger, or ← →.\nSpace or ↑ launches the ball.\nTop rows are worth more. Lives depend on difficulty (5 / 3 / 3).\nEach new level adds rows and a faster ball.",
+    'g.pong.help.goal': "Score past the computer paddle. First to 7 points wins.",
+    'g.pong.help.rules': "Move the left paddle with the mouse, a finger, W/S or ↑/↓.\nSpace serves the ball.\nThe ball speeds up with every hit.",
+    'g.whack.help.goal': "Hit as many moles as you can in 30 seconds.",
+    'g.whack.help.rules': "Click or tap a mole, or use keys 1–9.\nOn the numpad the keys match the holes; on the top row they go in reading order.\nMisses lower your accuracy.\nMoles pop up faster as time runs out.",
+    'g.memory.help.goal': "Find every matching pair in as few moves and as little time as possible.",
+    'g.memory.help.rules': "Flip two cards each turn.\nA match stays open; a mismatch flips back.\nBoards are 4×4, 5×4 or 6×6 depending on difficulty.\nScore is 10 points per pair, plus a bonus if you finish with almost no extra moves.",
+    'g.invaders.help.goal': "Shoot all the aliens before they reach the ground.",
+    'g.invaders.help.rules': "Move with ← → or the pointer; Space, ↑, a click or a tap fires.\nHide behind the green shields and dodge the bombs.\nClearing a wave starts a faster one.\nDifficulty changes speed, fire rate and lives (5 / 3 / 2).",
+    'g.sudoku.help.goal': "Fill the 9×9 grid so every row, column and 3×3 box contains the digits 1–9 once.",
+    'g.sudoku.help.rules': "The given numbers cannot be changed. Each puzzle has exactly one solution.\nClick a cell, then type 1–9 or use the keypad; 0 or Backspace erases.\nN or “Notes” writes pencil marks for possible digits.\nWrong entries and conflicts turn red and count as mistakes.\nEasy / Normal / Hard start with about 40 / 32 / 26 numbers given.\nScore starts from a difficulty base (1000 / 2000 / 3000), minus time and 50 per mistake (minimum 100).",
+    'g.simon.help.goal': "Repeat the colour sequence for as many rounds as you can.",
+    'g.simon.help.rules': "Watch the pads light up, then repeat the sequence.\nEach round adds one step and plays faster.\nClick or tap the pads, or use 1–4 / arrow keys (W D S A).\nSpace starts the game; M toggles sound.\nEasy allows 2 mistakes, Normal 1; Hard is strict and faster."
+  },
+  ru: {
+    'g.snake.help.goal': "Собирай яблоки, расти и продержись как можно дольше.",
+    'g.snake.help.rules': "Нельзя врезаться в стены и в себя.\nНельзя развернуться в себя одним ходом.\nКаждые 5 яблок змейка ускоряется.",
+    'g.tetris.help.goal': "Складывай падающие фигуры и собирай сплошные линии.",
+    'g.tetris.help.rules': "← → — сдвиг, ↑ / W / X — поворот, Z — поворот в другую сторону.\n↓ — ускорить падение, пробел — сбросить фигуру сразу вниз.\nНа телефоне: тап — поворот, перетаскивание — сдвиг, резкий свайп вниз — сброс.\nКаждые 10 линий — новый уровень, фигуры падают быстрее.\nЗа 4 линии разом (тетрис) больше всего очков.\nИгра кончается, когда новая фигура уже не помещается на поле.",
+    'g.2048.help.goal': "Сдвигай плитки и складывай одинаковые, пока не соберёшь 2048 — потом можно играть дальше.",
+    'g.2048.help.rules': "Сдвигается вся доска сразу: две плитки с одним числом сливаются в одну вдвое больше.\nПосле хода в пустой клетке появляется новая 2 (иногда 4).\nЛёгкий — 5×5, нормальный — 4×4, сложный — 3×3.\nИгра кончается, когда доска заполнена и сдвинуть больше некуда.",
+    'g.minesweeper.help.goal': "Открой все безопасные клетки и не подорвись на мине.",
+    'g.minesweeper.help.rules': "Первый клик всегда безопасный.\nЧисло — сколько мин в восьми соседних клетках.\nЛевый клик открывает клетку. Правый клик, долгое нажатие, F или режим «Флажки» ставят флажок.\nКликни по открытому числу, если флажков вокруг уже столько же, — откроются остальные соседи (аккорд).\nПобеда — когда открыты все клетки без мин.",
+    'g.flappy.help.goal': "Лети через просветы и пройди как можно больше труб.",
+    'g.flappy.help.rules': "Пробел, ↑, W, клик или тап — взмах.\nДо первого взмаха птица зависает на месте.\nНельзя задевать трубы и землю.",
+    'g.breakout.help.goal': "Разбей все кирпичи мячом и проходи уровни.",
+    'g.breakout.help.rules': "Ракетку двигай мышью, пальцем или ← →.\nПробел или ↑ запускают мяч.\nВерхние ряды дают больше очков. Число жизней зависит от сложности (5 / 3 / 3).\nНа каждом новом уровне больше рядов, и мяч быстрее.",
+    'g.pong.help.goal': "Забей компьютеру. Побеждает тот, кто первым наберёт 7 очков.",
+    'g.pong.help.rules': "Левую ракетку двигай мышью, пальцем, W/S или ↑/↓.\nПробел — подача.\nС каждым ударом мяч ускоряется.",
+    'g.whack.help.goal': "Ударь как можно больше кротов за 30 секунд.",
+    'g.whack.help.rules': "Кликай или тапай по кроту, либо клавиши 1–9.\nНа цифровом блоке клавиши совпадают с норками; в верхнем ряду — по порядку чтения.\nПромахи снижают точность.\nК концу раунда кроты появляются чаще.",
+    'g.memory.help.goal': "Найди все пары за как можно меньше ходов и времени.",
+    'g.memory.help.rules': "За ход переворачиваются две карты.\nПара остаётся открытой, несовпадение переворачивается обратно.\nПоле 4×4, 5×4 или 6×6 — в зависимости от сложности.\nСчёт: 10 очков за пару плюс бонус, если закончишь почти без лишних ходов.",
+    'g.invaders.help.goal': "Уничтожь всех пришельцев, пока они не дошли до земли.",
+    'g.invaders.help.rules': "Движение — ← → или указатель; пробел, ↑, клик или тап — выстрел.\nПрячься за зелёными щитами и уворачивайся от бомб.\nПосле волны начинается следующая, более быстрая.\nСложность меняет скорость, частоту огня и число жизней (5 / 3 / 2).",
+    'g.sudoku.help.goal': "Заполни поле 9×9 так, чтобы в каждой строке, столбце и квадрате 3×3 стояли цифры 1–9 без повторов.",
+    'g.sudoku.help.rules': "Исходные цифры менять нельзя. У каждой головоломки ровно одно решение.\nКликни клетку, затем введи 1–9 или нажми кнопку на клавиатуре внизу; 0 или Backspace стирает.\nN или «Заметки» пишут карандашом возможные цифры.\nОшибки и конфликты подсвечиваются красным и считаются промахами.\nНа лёгком / нормальном / сложном сначала открыто примерно 40 / 32 / 26 цифр.\nСчёт: база за сложность (1000 / 2000 / 3000) минус время и 50 за ошибку (минимум 100).",
+    'g.simon.help.goal': "Повторяй цветовую последовательность как можно дольше.",
+    'g.simon.help.rules': "Смотри, какие кнопки загораются, и повтори последовательность.\nКаждый раунд добавляет шаг и показ ускоряется.\nКликай или тапай по кнопкам, либо клавиши 1–4 / стрелки (W D S A).\nПробел — старт, M — звук вкл/выкл.\nНа лёгком можно ошибиться 2 раза, на нормальном — 1, на сложном — без ошибок и быстрее."
+  }
+};

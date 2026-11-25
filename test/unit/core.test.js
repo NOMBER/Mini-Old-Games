@@ -19,6 +19,25 @@ test('registry: 9+ games, valid modules, unique ids', () => {
   games.forEach(g => { assert.ok(g.rules.init && g.rules.actions && g.ui.draw && g.meta.id === g.id && g.icon, g.id); });
   assert.throws(() => registry.register({ meta: {} }));
 });
+test('help guides: all 12 games have a short guide in en and ru', () => {
+  assert.equal(games.length, 12);
+  const keys = ['help.btn', 'help.title', 'help.close', 'help.goal', 'help.controls', 'help.rules', 'help.closeHint'];
+  keys.forEach(k => { assert.ok(i18n.I18N.en[k] && i18n.I18N.ru[k], k); });
+  games.forEach(g => {
+    ['help.goal', 'help.rules'].forEach(part => {
+      const k = 'g.' + g.id + '.' + part;
+      i18n.setLang('en'); const en = i18n.t(k);
+      i18n.setLang('ru'); const ru = i18n.t(k);
+      assert.ok(en && en !== k && en.length > 8, g.id + ' en ' + part);
+      assert.ok(ru && ru !== k && ru !== en && ru.length > 8, g.id + ' ru ' + part);
+      if (part === 'help.rules') {
+        assert.ok(en.split('\n').length >= 2 && ru.split('\n').length >= 2, g.id + ' rules bullets');
+      }
+    });
+    i18n.setLang('en'); assert.ok(i18n.t('g.' + g.id + '.controls').includes('\n') || i18n.t('g.' + g.id + '.controls').length > 8, g.id + ' controls');
+  });
+  i18n.setLang('en');
+});
 test('i18n: en/ru parity and fallback', () => {
   assert.deepEqual(i18n.missingKeys(), { en: [], ru: [] });
   const en = Object.keys(i18n.I18N.en), ru = Object.keys(i18n.I18N.ru);
