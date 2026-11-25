@@ -1,7 +1,8 @@
 'use strict';
 // i18n: en/ru dictionaries. Core strings live in strings.js, every game adds its own via register().
 const CORE = require('./strings');
-const I18N = { en: Object.assign({}, CORE.en), ru: Object.assign({}, CORE.ru) };
+const HELP = require('./help-strings');
+const I18N = { en: Object.assign({}, CORE.en, HELP.en), ru: Object.assign({}, CORE.ru, HELP.ru) };
 let LANG = 'en';
 function register(strings) {
   if (!strings) return;

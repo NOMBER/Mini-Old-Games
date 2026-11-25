@@ -1,6 +1,6 @@
 # Mini Old Games
 
-Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your [Obsidian](https://obsidian.md) vault. Version **1.1.0**. Source: [NOMBER/Mini-Old-Games](https://github.com/NOMBER/Mini-Old-Games). English or Russian UI (English by default). Works on desktop and mobile.
+Rediscover the joy of classic gaming with 12 timeless mini-games, right inside your [Obsidian](https://obsidian.md) vault. Version **1.2.0**. Source: [NOMBER/Mini-Old-Games](https://github.com/NOMBER/Mini-Old-Games). English or Russian UI (English by default). Works on desktop and mobile.
 
 ## Why
 
@@ -19,6 +19,7 @@ Sometimes you just need a two-minute break.
 - Play **in a popup** (default), **in a tab**, or **right in the hub**. The hub’s Play button always starts the game there; cards also have “In popup” and “In tab”. After a hub game ends you can play again, go back to the menu, press Esc, or wait 10 seconds for the menu to return.
 - **Statistics** across all sessions, and **67 achievements** (per-game + global).
 - **Easy / Normal / Hard** on every game, remembered per game.
+- A **?** button above the field opens a short how-to-play guide (goal, controls, rules) in English or Russian. The game pauses while the guide is open.
 
 The command palette also has “Play: …”, “Play in tab / popup / hub: …”, plus commands to open the hub, statistics, achievements, or close the popup. The popup itself has “Open in tab” and closes with Esc.
 
@@ -124,6 +125,7 @@ If you previously used *Mini Games* (`mini-games`) or *Mini Old Games* 1.0.3 (`m
 
 ## Changelog
 
+- **1.2.0** — in-game **?** help: a short how-to-play guide for every game (goal, keyboard and touch controls, key rules), in English and Russian. Opening it pauses the game and does not count as a session.
 - **1.1.0** — optional OBSIGAMA sync (off by default): stats, best scores and achievements can be shared with the OBSIGAMA game hub. Gameplay and saves are unchanged (bundled @obsigama/sdk 0.1.1, OBSIGAMA game manifest v2 with score caps: Pong 7, Minesweeper 381, Sudoku 3000, Memory 280).
 
 ## License
